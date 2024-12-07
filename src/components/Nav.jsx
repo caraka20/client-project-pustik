@@ -3,11 +3,7 @@ import {
   Navbar,
   NavbarBrand,
   NavbarMenuToggle,
-  NavbarMenuItem,
-  NavbarMenu,
   NavbarContent,
-  NavbarItem,
-  Button,
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
@@ -25,23 +21,30 @@ export default function Nav() {
       isBordered
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
-      className="w-full py-4"
+      className="w-full pb-2"
+      style={{
+        backgroundColor: "rgb(165,12,13)",
+        zIndex: 50,
+      }}
     >
       {/* Logo dan Hamburger Menu */}
       <NavbarContent justify="start" className="sm:hidden relative">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="text-white"
         />
         <NavbarBrand className="absolute right-5 top-5">
-          <p className="font-bold text-inherit">LOGO</p>
+          <Link to="/" onClick={() => setIsMenuOpen(false)}>
+            <p className="font-bold text-white cursor-pointer">LOGO</p>
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 
       {/* Logo Pojok Kiri */}
       <NavbarContent className="hidden sm:flex gap-4" justify="start">
         <NavbarBrand>
-          <Link to="/">
-            <p className="font-bold text-inherit cursor-pointer">LOGO</p>
+          <Link to="/" onClick={() => setIsMenuOpen(false)}>
+            <p className="font-bold text-white cursor-pointer">LOGO</p>
           </Link>
         </NavbarBrand>
       </NavbarContent>
@@ -49,30 +52,56 @@ export default function Nav() {
       {/* Menu Pojok Kanan */}
       <NavbarContent justify="end" className="hidden sm:flex gap-4">
         {menuItems.map((item, index) => (
-          <NavbarItem key={index}>
-            <Link
-              to={item.href}
-              className="text-gray-600 hover:text-orange-500 hover:underline hover:underline-offset-4 hover:decoration-orange-500 transition-all duration-300"
-            >
-              {item.name}
-            </Link>
-          </NavbarItem>
+          <Link
+            key={index}
+            to={item.href}
+            className="text-white hover:text-orange-300 hover:underline hover:underline-offset-4 hover:decoration-orange-300 transition-all duration-300"
+          >
+            {item.name}
+          </Link>
         ))}
       </NavbarContent>
 
       {/* Hamburger Menu */}
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={index}>
-            <Link
-              to={item.href}
-              className="w-full text-gray-600 hover:text-orange-500 hover:underline hover:underline-offset-4 hover:decoration-orange-500 transition-all duration-300"
-            >
-              {item.name}
-            </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
+      <div
+        className={`fixed top-0 left-0 h-full bg-black bg-opacity-95 text-white transition-transform duration-500 ease-in-out ${
+          isMenuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+        style={{
+          width: "100%",
+          zIndex: 60,
+        }}
+      >
+        <div className="p-6 mt-4 bg-black bg-opacity-50">
+          {/* Tambahkan margin bawah untuk memberi ruang pada daftar menu */}
+          <div className="mb-8">
+            <NavbarMenuToggle
+              aria-label="Close menu"
+              onClick={() => setIsMenuOpen(false)}
+              className="text-white"
+            />
+          </div>
+          <ul className="space-y-6">
+            {menuItems.map((item, index) => (
+              <li
+                key={index}
+                className="px-4 py-4 rounded-lg transition-all duration-300"
+              >
+                <Link
+                  to={item.href}
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className="block text-lg font-medium text-white hover:text-orange-300 transition-all duration-300"
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </Navbar>
   );
 }

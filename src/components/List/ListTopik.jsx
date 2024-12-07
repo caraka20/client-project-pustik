@@ -19,6 +19,14 @@ const ListTopik = () => {
   // Data yang ditampilkan (3 pertama atau semua)
   const displayedTopics = showAll ? topicsArray : topicsArray.slice(0, 3);
 
+  // Fungsi untuk mengubah huruf awal setiap kata menjadi kapital
+  const capitalizeWords = (str) => {
+    return str
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
@@ -42,15 +50,17 @@ const ListTopik = () => {
                   isActive ? "bg-blue-100 border-blue-700" : ""
                 }`} // Highlight jika aktif
               >
-                <div className="bg-gray-50 p-4 rounded-md shadow-md border border-gray-200 hover:bg-gray-100 transition">
+                <div className="bg-white border p-4 border-gray-300 rounded-lg shadow-sm transition-transform duration-300 hover:shadow-lg hover:scale-105 hover:bg-gray-100">
                   <h3
                     className={`text-lg font-bold ${
                       isActive ? "text-blue-900 underline" : "text-blue-700"
                     }`}
                   >
-                    {topic.topik}
+                    {capitalizeWords(topic.topik)} {/* Ubah ke capitalize */}
                   </h3>
-                  <p className="text-gray-600">{`Halaman ini menyediakan informasi tentang ${topic.topik} di Indonesia.`}</p>
+                  <p className="text-gray-600">{`Halaman ini menyediakan informasi tentang ${capitalizeWords(
+                    topic.topik
+                  )} di Indonesia.`}</p>
                 </div>
               </Link>
             );

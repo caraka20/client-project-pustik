@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Container from "../components/Container";
 import ListTopikBy from "../components/List/ListGeo";
 import ContentLowonganKerja from "../components/Content/ContentLowonganKerja";
@@ -10,7 +11,23 @@ import ContentHome from "../components/Content/ContentHome";
 const TopikByGeo = () => {
   const { permalink } = useParams(); // Ambil parameter dari URL
 
-  // kalo topiknya apa bakal langsungcari content sesuai urlnya
+  // Menentukan judul halaman berdasarkan permalink
+  const getPageTitle = () => {
+    switch (permalink) {
+      case "profil-perusahaan":
+        return "Profil Perusahaan - Informasi Terbaru";
+      case "lowongan-kerja":
+        return "Lowongan Kerja - Kesempatan Karir Terbaik";
+      case "alamat-perusahaan":
+        return "Alamat Perusahaan - Direktori Lengkap";
+      case "informasi-gaji":
+        return "Informasi Gaji - Panduan Kompensasi";
+      default:
+        return "Halaman Tidak Ditemukan";
+    }
+  };
+
+  // Render konten berdasarkan permalink
   const renderContent = () => {
     switch (permalink) {
       case "profil-perusahaan":
@@ -28,8 +45,12 @@ const TopikByGeo = () => {
 
   return (
     <Container>
+      {/* dynamic title */}
+      <Helmet>
+        <title>{getPageTitle()}</title>
+      </Helmet>
+
       <ListTopikBy />
-      {/* Render konten berdasarkan parameter */}
       <div className="mt-6">{renderContent()}</div>
       <ListTopik />
       <ContentArtikel />

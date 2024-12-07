@@ -1,20 +1,13 @@
-import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import svg from "../assets/404.svg";
 
 const PageNotFound = () => {
-  useEffect(() => {
-    document.title = "🚫 Page Not Found - My Website";
-  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <Helmet>
-        <meta
-          name="description"
-          content="Oops! The page you are looking for does not exist or has been moved."
-        />
+        <title>Page Not Found</title>
       </Helmet>
 
       <img src={svg} alt="404 Illustration" className="max-w-md mb-6" />

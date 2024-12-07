@@ -12,7 +12,7 @@ export const geoSlice = createSlice({
   initialState,
   reducers: {
     setGeoData: (state, { payload }) => {
-      state.data = payload; // Payload harus mengandung `items` dan `totalItems`
+      state.data = payload;
       state.isLoading = false;
       state.error = null;
     },
@@ -34,7 +34,7 @@ export const fetchGeo = (params) => async (dispatch) => {
       .map((key) => `${key}=${params[key]}`)
       .join("&");
     const response = await axiosInstance.get(`/geo?${queryString}`);
-    dispatch(setGeoData(response.data.data)); // Respons API harus sesuai
+    dispatch(setGeoData(response.data.data)); 
   } catch (error) {
     dispatch(setError(error.message));
   }

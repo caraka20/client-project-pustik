@@ -3,6 +3,7 @@ import posisiReducer from "./features/posisiSlice";
 import topikReducer from "./features/topikSlice";
 import mappingReducer from "./features/mappingSlice";
 import geoReducer from "./features/geoSlice";
+import industriReducer from "./features/industriSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     topik: topikReducer,
     mapping: mappingReducer,
     geo: geoReducer,
+    industri: industriReducer,
   },
 });
 
